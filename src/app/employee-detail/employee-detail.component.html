@@ -1,0 +1,56 @@
+<div>
+    <div class="container">
+        <div class="text-center">
+          <input class="search" type="text" placeholder="Enter to search" name="searchString" [(ngModel)]="searchString"><br>
+<table class="rwd-table">
+   
+    <th>First Name</th> <th>Last name</th> <th>Company</th> <th>Email</th> <th>Eye Colour</th> <th>Primary Phone</th>
+    <th>Balance</th> <th>Is Active</th> <th>View Profile</th>
+    <tr  *ngFor="let data of pagedItem | filter : 'name' : searchString" >
+    <td>{{ data.name.first | uppercase }}</td>
+    <td>{{ data.name.last}}</td> 
+    <td>{{ data.company}}</td>
+    <td>{{ data.email }}</td> 
+    <td>{{ data.eyeColor }}</td> 
+    <td>{{ data.contactnumber[0].phone}}</td>
+    <td>{{ data.balance }}</td>
+    <td>{{ data.isActive }}</td>
+    <td><button type="button" (click)='openModal(template)'>View Profile</button></td> 
+      
+      
+    </tr>
+  </table>
+
+  <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+      <li [ngClass]="{disabled:pager.currentPage === 1}">
+          <a (click)="setPage(1)">First</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === 1}">
+          <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+      </li>
+      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <a (click)="setPage(page)">{{page}}</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a (click)="setPage(pager.currentPage + 1)">Next</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a (click)="setPage(pager.totalPages)">Last</a>
+      </li>
+  </ul>
+</div>
+</div>
+</div>
+
+ 
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    This is a modal.
+  </div>
+</ng-template>
